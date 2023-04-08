@@ -5,24 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#d2d2d2"
     tools.context=".MainActivity">
-    
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="610dp"
         android:id="@+id/container"
         android:background="#d2d2d2"
+
         />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="30dp"
-        app:menu="@menu/menu_bottom"
-        app:labelVisibilityMode="unlabeled"
-        app:itemIconSize="30dp"
-        android:background="@drawable/nav_bg"
-        app:itemIconTint="@drawable/item_selector"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -20,4 +20,6 @@
     <string name="logout">Logout</string>
     <string name="welcome">Welcome</string>
     <string name="confirm_password">Confirm password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
