@@ -44,13 +44,13 @@ public class MainMenu extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        replace(new Settings());
+                        replace(new MainMenu_Home());
                         break;
                     case R.id.navigation_calendar:
                         replace(new Calendar());
                         break;
                     case R.id.navigation_settings:
-                        replace(new MainMenu_Home());
+                        replace(new Settings());
                         break;
                 }
 

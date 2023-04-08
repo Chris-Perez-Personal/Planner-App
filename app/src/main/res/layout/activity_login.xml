@@ -16,7 +16,7 @@
         android:fontFamily="sans-serif"
         android:textColor="@color/purple_200"
         android:gravity="center"
-        android:text="@string/sherpa"
+        android:text="@string/app_name"
         android:textSize="30dp"
         android:textStyle="bold" />
 

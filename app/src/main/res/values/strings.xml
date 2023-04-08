@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sherpa App</string>
+    <string name="app_name">Sherpa</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -20,5 +20,6 @@
     <string name="logout">Logout</string>
     <string name="welcome">Welcome</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="reset_password">Reset Password</string>
 
 </resources>
