@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#d2d2d2"
-    tools.context=".MainActivity">
+    tools.context=".MainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#D2D2D2"
+    android:hapticFeedbackEnabled="true">
 
     <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="610dp"
-        android:id="@+id/container"
         android:background="#d2d2d2"
 
-        />
+        >
+
+    </FrameLayout>
+
+    <CalendarView
+        android:id="@+id/calendarView2"
+        style="@android:style/Widget.DeviceDefault.CalendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
