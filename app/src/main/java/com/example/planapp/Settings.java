@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class Settings extends Fragment {
 
-    Activity context;
+    Activity context; //needed to switch from fragment to activity
     FirebaseAuth auth;
     FirebaseUser user;
     // TODO: Rename parameter arguments, choose names that match
@@ -47,23 +47,23 @@ public class Settings extends Fragment {
      * @return A new instance of fragment Settings.
      */
     // TODO: Rename and change types and number of parameters
-//    public static Settings newInstance(String param1, String param2) {
-//        Settings fragment = new Settings();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
+    public static Settings newInstance(String param1, String param2) {
+        Settings fragment = new Settings();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +76,7 @@ public class Settings extends Fragment {
 
     public void onStart()
     {
+        //gets signed in user info but returns to login if no one is signed in
         super.onStart();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -91,7 +92,7 @@ public class Settings extends Fragment {
             textView.setText("User: " + user.getEmail());
         }
         button.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Override//switches to login activity once you logout
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(context,Login.class);
