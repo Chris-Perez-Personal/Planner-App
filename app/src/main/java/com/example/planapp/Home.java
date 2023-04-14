@@ -41,7 +41,8 @@ public class Home extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        else {
+        else
+        {
             textView.setText(user.getEmail());
         }
         button.setOnClickListener(new View.OnClickListener() {
