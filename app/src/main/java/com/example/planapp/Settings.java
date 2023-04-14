@@ -1,5 +1,7 @@
 package com.example.planapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +9,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +22,9 @@ import android.view.ViewGroup;
  */
 public class Settings extends Fragment {
 
+    Activity context; //needed to switch from fragment to activity
+    FirebaseAuth auth;
+    FirebaseUser user;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,8 +67,37 @@ public class Settings extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
+        context = getActivity();
         return inflater.inflate(R.layout.fragment_settings, container, false);
+    }
+
+    public void onStart()
+    {
+        //gets signed in user info but returns to login if no one is signed in
+        super.onStart();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        Button button = (Button) context.findViewById(R.id.logout);
+        TextView textView = (TextView) context.findViewById(R.id.displayUser);
+        if (user == null)
+        {
+            Intent intent = new Intent(context,Login.class);
+            startActivity(intent);
+        }
+        else
+        {
+            textView.setText("User: " + user.getEmail());
+        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override//switches to login activity once you logout
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(context,Login.class);
+                startActivity(intent);
+            }
+        });
     }
 }
