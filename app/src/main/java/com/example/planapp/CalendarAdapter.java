@@ -1,4 +1,4 @@
-package codewithcal.au.calendarappexample;
+package com.example.planapp;
 
 import android.view.LayoutInflater;
 import android.view.View;
