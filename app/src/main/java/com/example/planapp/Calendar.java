@@ -1,5 +1,6 @@
 package com.example.planapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class Calendar extends Fragment {
 
+    Activity context;
     private CalendarView calendarView;
     private EditText editText;
     private String dateSelected;
@@ -40,20 +42,6 @@ public class Calendar extends Fragment {
 
     public Calendar() {
         // Required empty public constructor
-    }
-
-
-    public Calendar(long date, CalendarView calendarView, EditText editText) {
-
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2){
-                dateSelected = Integer.toHexString(i) + Integer.toHexString(i1) + Integer.toHexString(i2);
-                calendarClick();
-            }
-        });
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("Calendar");
     }
 
     private void calendarClick(){
@@ -104,13 +92,29 @@ public class Calendar extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        context = getActivity();
         return inflater.inflate(R.layout.fragment_calendar, container, false);
     }
+
+    public void onStart(){
+        super.onStart();
+        calendarView = (CalendarView) context.findViewById(R.id.calendarView);
+        editText = (EditText) context.findViewById(R.id.editText);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2){
+                dateSelected = Integer.toHexString(i) + Integer.toHexString(i1) + Integer.toHexString(i2);
+                calendarClick();
+            }
+        });
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Calendar");
+    }
+
 }

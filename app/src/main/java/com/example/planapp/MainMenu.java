@@ -55,9 +55,7 @@ public class MainMenu extends AppCompatActivity {
                         replace(new MainMenu_Home());
                         break;
                     case R.id.navigation_calendar:
-                        calendarView = (CalendarView) findViewById(R.id.calendarView);
-                        editText = findViewById(R.id.editText);
-                        replace(new Calendar(date, calendarView, editText));
+                        replace(new Calendar());
                         break;
                     case R.id.navigation_settings:
                         replace(new Settings());
