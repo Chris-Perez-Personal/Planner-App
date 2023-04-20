@@ -85,6 +85,7 @@ public class Calendar extends Fragment {
         calendarView = (CalendarView) context.findViewById(R.id.calendarView);
         editText = (EditText) context.findViewById(R.id.editText);
         Button button = (Button) context.findViewById(R.id.button);
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2){
@@ -94,8 +95,10 @@ public class Calendar extends Fragment {
         });
         button.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view){
-                databaseReference.child(dateSelected).setValue(editText.getText().toString());
+            public void onClick(View view) {
+                if (dateSelected != null) {
+                    databaseReference.child(dateSelected).setValue(editText.getText().toString());
+                }
             }
         });
 
