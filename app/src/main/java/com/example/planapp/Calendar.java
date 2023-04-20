@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 
@@ -42,29 +43,6 @@ public class Calendar extends Fragment {
 
     public Calendar() {
         // Required empty public constructor
-    }
-
-    private void calendarClick(){
-        databaseReference.child(dateSelected).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue() != null){
-                    editText.setText(snapshot.getValue().toString());
-                }else {
-                    editText.setText("null");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-    }
-
-    public void buttonSaveEvent(View view){
-        databaseReference.child(dateSelected).setValue(editText.getText().toString());
-
     }
 
     /**
@@ -106,6 +84,7 @@ public class Calendar extends Fragment {
         super.onStart();
         calendarView = (CalendarView) context.findViewById(R.id.calendarView);
         editText = (EditText) context.findViewById(R.id.editText);
+        Button button = (Button) context.findViewById(R.id.button);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2){
@@ -113,8 +92,30 @@ public class Calendar extends Fragment {
                 calendarClick();
             }
         });
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                databaseReference.child(dateSelected).setValue(editText.getText().toString());
+            }
+        });
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Calendar");
     }
 
+    private void calendarClick(){
+        databaseReference.child(dateSelected).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null){
+                    editText.setText(snapshot.getValue().toString());
+                }else {
+                    editText.setText("null");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
 }
