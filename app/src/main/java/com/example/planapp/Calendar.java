@@ -1,98 +1,116 @@
 package com.example.planapp;
 
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.CalendarView;
+import android.widget.EditText;
 
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import codewithcal.au.calendarappexample.CalendarAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link Calendar#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class Calendar extends Fragment {
+
+    private CalendarView calendarView;
+    private EditText editText;
+    private String dateSelected;
+    private DatabaseReference databaseReference;
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public Calendar() {
+        // Required empty public constructor
+    }
 
 
-public class Calendar extends Fragment implements CalendarAdapter.OnItemListener{
+    public Calendar(long date, CalendarView calendarView, EditText editText) {
 
-    private TextView monthYearText;
-    private RecyclerView calendarRecyclerView;
-    private LocalDate selectedDate;
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2){
+                dateSelected = Integer.toHexString(i) + Integer.toHexString(i1) + Integer.toHexString(i2);
+                calendarClick();
+            }
+        });
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Calendar");
+    }
+
+    private void calendarClick(){
+        databaseReference.child(dateSelected).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null){
+                    editText.setText(snapshot.getValue().toString());
+                }else {
+                    editText.setText("null");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+    }
+
+    public void buttonSaveEvent(View view){
+        databaseReference.child(dateSelected).setValue(editText.getText().toString());
+
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment Calendar.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static Calendar newInstance(String param1, String param2) {
+        Calendar fragment = new Calendar();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initWidgets();
-        selectedDate = LocalDate.now();
-        setMonthView();
-    }
-
-    private void initWidgets() {
-        calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
-        monthYearText = findViewById(R.id.monthYearTV);
-    }
-    private void setMonthView() {
-        monthYearText.setText();
-        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
-
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
-        calendarRecyclerView.setLayoutManager(layoutManager);
-        calendarRecyclerView.setAdapter(calendarAdapter);
-
-    }
-
-    private ArrayList<String> daysInMonthArray(LocalDate selectedDate) {
-        ArrayList<String> daysInMonth = new ArrayList<>();
-        YearMonth yearMonth = YearMonth.from(date);
-
-        int daysInMonth = yearMonth.lengthOfMonth();
-
-        LocalDate firstOfMonth = selectedDate.with(1);
-        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
-
-        for(int i = 1; i <= 42; i++){
-            if(i <= dayOfWeek || i > daysInMonth +dayOfWeek){
-                daysInMonthArray.add("");
-            }
-            else{
-                daysInMonthArray.add(i+dayOfWeek);
-            }
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        return daysInMonthArray;
-    }
-
-    private String monthYearfromDate(LocalDate date){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
-        return date.format(formatter);
-    }
-    public void previousMonthAction(View view){
-        selectedDate = selectedDate.minusMonths(1);
-        setMonthView();
-    }
-
-    public void nextMonthAction(View view){
-        selectedDate = selectedDate.plusMonths(1);
-        setMonthView();
     }
 
     @Override
-    public void onItemClick(int position, String dayText) {
-        if(dayText.equals("")){
-            String message = "Selected Date " + dayText + " " + monthYearfromDate(selectedDate);
-            Toast.makeText(this, message, Toast.LENGTH_LONG);
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_calendar, container, false);
     }
 }

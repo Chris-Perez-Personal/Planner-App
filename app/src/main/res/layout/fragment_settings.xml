@@ -37,17 +37,6 @@
             tools:layout_editor_absoluteY="170dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="30dp"
-        app:menu="@menu/menu_bottom"
-        app:labelVisibilityMode="unlabeled"
-        app:itemIconSize="30dp"
-        android:background="@drawable/nav_bg"
-        app:itemIconTint="@drawable/item_selector"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
