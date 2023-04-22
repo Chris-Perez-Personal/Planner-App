@@ -21,6 +21,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Collections;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -65,12 +67,16 @@ class AOBJ {
 
 
 public class ExampleUnitTest {
-    //with multiple classes we would have an array of this
-    //AOBJ HumanFactors = new AOBJ();
-    ArrayList<AOBJ> aobjList = new ArrayList<AOBJ>();
     List<String> dueDatesValuesOfOBJ = new ArrayList<>();
     List<String> assignmentNamesOfOBJ = new ArrayList<>();
+    //with multiple classes we would have an array of this
+    //AOBJ HumanFactors = new AOBJ();
 
+
+
+
+
+    ArrayList<AOBJ> aobjList = new ArrayList<AOBJ>();
     int counter = 0;
     int counter2 = 0;
 
@@ -80,10 +86,31 @@ public class ExampleUnitTest {
         //assertEquals(4, 2 + 2);
         extractJsonNames("data-mining.json");
         extractDueDates("data-mining.json");
-        System.out.println("Printing out info for data mining");
 
-//        System.out.println(HumanFactors.assignmentNamesOfOBJ);
-//        System.out.println(HumanFactors.dueDatesValuesOfOBJ);
+        extractJsonNames("computing_systems_fund.json");
+        extractDueDates("computing_systems_fund.json");
+
+        extractJsonNames("software-engineering.json");
+        extractDueDates("software-engineering.json");
+
+        extractJsonNames("human_factors.json");
+        extractDueDates("human_factors.json");
+
+        extractJsonNames("algorithms.json");
+        extractDueDates("algorithms.json");
+
+        //System.out.println("Printing out info for data mining");
+
+
+        //Organizes the objects by due date
+        Collections.sort(aobjList, new Comparator<AOBJ>() {
+            public int compare(AOBJ a1, AOBJ a2) {
+                return a1.getDueDate().compareTo(a2.getDueDate());
+            }
+        });
+
+
+        //prints out all objects
         System.out.println("------------------");
         for (AOBJ aobj : aobjList) {
 
