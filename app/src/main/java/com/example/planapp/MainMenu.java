@@ -1,11 +1,16 @@
 package com.example.planapp;
 
+import static com.example.planapp.R.id.calendarView;
+import static com.example.planapp.R.id.editText;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +33,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainMenu extends AppCompatActivity {
+
+    private CalendarView calendarView;
+    private EditText editText;
 
     BottomNavigationView bottomNav;
 

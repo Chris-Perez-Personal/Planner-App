@@ -1,12 +1,23 @@
 package com.example.planapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.EditText;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +25,12 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Calendar extends Fragment {
+
+    Activity context;
+    private CalendarView calendarView;
+    private EditText editText;
+    private String dateSelected;
+    private DatabaseReference databaseReference;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +76,49 @@ public class Calendar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        context = getActivity();
         return inflater.inflate(R.layout.fragment_calendar, container, false);
+    }
+
+    public void onStart(){
+        super.onStart();
+        calendarView = (CalendarView) context.findViewById(R.id.calendarView);
+        editText = (EditText) context.findViewById(R.id.editText);
+        Button button = (Button) context.findViewById(R.id.button);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2){
+                dateSelected = Integer.toHexString(i) + Integer.toHexString(i1) + Integer.toHexString(i2);
+                calendarClick();
+            }
+        });
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (dateSelected != null) {
+                    databaseReference.child(dateSelected).setValue(editText.getText().toString());
+                }
+            }
+        });
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Calendar");
+    }
+
+    private void calendarClick(){
+        databaseReference.child(dateSelected).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null){
+                    editText.setText(snapshot.getValue().toString());
+                }else {
+                    editText.setText("null");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 }
