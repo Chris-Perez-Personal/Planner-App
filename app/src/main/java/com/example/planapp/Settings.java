@@ -81,6 +81,7 @@ public class Settings extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         Button button = (Button) context.findViewById(R.id.logout);
+        Button userQuery = (Button) context.findViewById(R.id.user_query);
         TextView textView = (TextView) context.findViewById(R.id.displayUser);
         if (user == null)
         {
@@ -96,6 +97,14 @@ public class Settings extends Fragment {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(context,Login.class);
+                startActivity(intent);
+            }
+        });
+
+        userQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, UserQuery.class);
                 startActivity(intent);
             }
         });
