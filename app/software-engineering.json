@@ -1,0 +1,436 @@
+[
+  {
+    "id": 30000028801210,
+    "description": "<link rel=\"stylesheet\" href=\"https://instructure-uploads.s3.us-east-1.amazonaws.com/account_30000000000410/attachments/96076219/canvas_global_app.css\"><p>In this assignment you will add to a Python program to retrieve information from a movie database.&nbsp;</p>\n<p><strong>Preparation for Assignment:</strong></p>\n<ol>\n<li>Get an account on TMDB (The Movie Database): &nbsp;<a href=\"https://www.themoviedb.org/signup\" target=\"_blank\">https://www.themoviedb.org/signup</a>\n<ul>\n<li>Please use your Texas State University email address.</li>\n<li>You will likely get a confirmation email for verifying your email address.&nbsp; You'll need to activate your account via the email&nbsp;</li>\n</ul>\n</li>\n<li>After getting your account, and logging in, click on the profile icon in the upper right (It is a circular icon with the first initial of the first word of your user name).&nbsp;\n<ul>\n<li>Select \"Settings\" from the drop down menu.</li>\n</ul>\n</li>\n<li>On the left pane, select \"API\"\n<ul>\n<li>Request an API key</li>\n<li>When asked what kind of key do want, click on \"Developer.\"&nbsp;&nbsp;</li>\n<li>Scroll down click on the \"Accept\" button for the \"Terms of Use\" ... it's mostly asking that you agree to do nothing bad or for profit with the key.</li>\n</ul>\n</li>\n<li>You will be asked the following:\n<ul>\n<li><strong>Type of Use</strong>: Select \"Education\"</li>\n<li><strong>Application Name</strong>: Pick a name of an app you would like to make.&nbsp; You are not committing to creating the app.</li>\n<li><strong>Application URL</strong>:&nbsp; Enter \"www.example.com\"</li>\n<li><strong>Application Summary</strong>: Enter in something like, \"I'm learning how to use REST APIs in a college course.\"</li>\n<li>For the rest,\n<ul>\n<li>Please enter in your name</li>\n<li>Your Texas State email.&nbsp; &nbsp;</li>\n<li>If you don't wish to use your own address, please use:\n<ul>\n<li>Computer Science Dept, Texas State University</li>\n<li>601 University Ave</li>\n<li>San Marcos, Texas 78666</li>\n</ul>\n</li>\n<li>The click the \"Submit\" button.</li>\n</ul>\n</li>\n<li>You should now have an API key.&nbsp;&nbsp;</li>\n</ul>\n</li>\n<li>Now go to your <strong>Personal Bitbucket.</strong>\n<ul>\n<li>To find your personal Bitbucket, click on the Bitbucket icon in the upper left of the Bitbucket page.</li>\n<li>Then select the menu item \"Repositories\"</li>\n<li>Then select the Workspaces drop down and type your name.</li>\n<li>You should see a workspace pop-up with your name on it.&nbsp;</li>\n</ul>\n</li>\n<li>Once in your personal workspace,&nbsp; create a new repository by starting with clicking on the \"Create Repository\" button in the upper right.\n<ul>\n<li>Select \"Import Repository\"</li>\n<li><strong>URL</strong>: Enter the following URL: <a href=\"https://bitbucket.org/txstatecs3398all/rest_tmdb_assignment/src/master/\" target=\"_blank\">https://bitbucket.org/txstatecs3398all/rest_tmdb_assignment/src/master/</a></li>\n<li><strong>Project</strong>:&nbsp; Scroll to the bottom of the drop down and select \"Create New Project.\"&nbsp;&nbsp;\n<ul>\n<li>Name the project, \"Rest API Assignments\"</li>\n</ul>\n</li>\n<li><strong>Repository Name:</strong> &lt;Your_NetID&gt;_A17</li>\n<li><strong>Access Level</strong>:&nbsp; Make this a public repository</li>\n<li><strong>Advanced Settings:</strong>&nbsp; Select language as \"Python\"</li>\n<li>Click \"Import repository.\"</li>\n</ul>\n</li>\n<li>On your repository page, you should see an \"Invite\" button in the upper right\n<ul>\n<li>Invite the instructor and the graders as developers (or administrators if you want).&nbsp; &nbsp;Their email addresses will be given in class and on Slack.</li>\n</ul>\n</li>\n</ol>\n<p><strong>Assignment</strong>:&nbsp;</p>\n<ol>\n<li>Review the NYTimes REST code here for hints on this assignment: <a href=\"https://bitbucket.org/txstatecs3398all/cs3398_restapis/src/master/\" target=\"_blank\">https://bitbucket.org/txstatecs3398all/cs3398_restapis/src/master/</a>&nbsp;</li>\n<li>Using GitKraken,&nbsp; Vscode or a command line, clone the repository to your desktop/laptop.&nbsp;&nbsp;\n<ul>\n<li>Use GitKraken only to clone as it may not let you edit the repo since it is private.&nbsp;&nbsp;</li>\n<li>Use Vscode to do the editing and debugging.</li>\n</ul>\n</li>\n<li>Create a .env file and add your API key to the file. Name the API key: \"TMDB_API_KEY\".</li>\n<li>In your browser go to: <a href=\"https://developers.themoviedb.org/3/getting-started/introduction\" target=\"_blank\">https://developers.themoviedb.org/3/getting-started/introduction</a>\n<ul>\n<li>In the left pane, scroll down until you see and click on \"Trending\"</li>\n<li>It will take you to a documentation page that will help you complete the assignment.&nbsp;</li>\n</ul>\n</li>\n<li>Using the starter code add new code or change existing code <strong>in VsCode</strong> to do the following:\n<ul>\n<li>Open a terminal window in VSCode and enter the following two commands to set up your VSCode environment:\n<ul>\n<li><em>pip3 install requests</em></li>\n<li><em>pip3 install load-dotenv</em></li>\n</ul>\n</li>\n<li>For Media Type: If the last numeral of your NETID is:\n<ul>\n<li>0,4,8: all</li>\n<li>1,5,9: movie</li>\n<li>2,6: tv</li>\n<li>3,5,7: person</li>\n</ul>\n</li>\n<li>For Time Window: if the first numeral of your NETID is:\n<ul>\n<li>0,1,2,3,4: week</li>\n<li>5,6,7,8,9: day</li>\n</ul>\n</li>\n<li><span style=\"color: #ba372a;\"><strong>NOTE:&nbsp; Please use the VSCode debugger to examine the data you get back.&nbsp; &nbsp;It will allow you to see these dictionaries and whether the keys below are actually returned.</strong></span></li>\n<li><strong>Depending upon your NETID, print out the following in formatted form (you choose the format). </strong></li>\n<li><strong><span style=\"text-decoration: underline;\">If the fields below are not available, you may choose others:</span></strong>\n<ul>\n<li>The <strong>titles</strong>, <strong>popularity</strong> and <strong>vote_count</strong> of the media type that are returned for movies</li>\n<li>The <strong>names</strong>, <strong>popularity</strong> and <strong>vote_count</strong> of the media type that are returned for tvs</li>\n<li>The <strong>names</strong>, <strong>popularity</strong> and <strong>vote_count</strong> of the first instance of the media type that are returned for actors</li>\n<li><strong>Note</strong>:&nbsp; You may have to test for <strong>names</strong> or <strong>titles</strong> if you are doing all media.&nbsp;</li>\n</ul>\n</li>\n<li><strong>Sort and print out the following in formatted form (you choose the format)</strong></li>\n<li>Please consider using <span>&nbsp;</span><a class=\"c-link c-link--underline\" href=\"https://docs.python.org/3/howto/sorting.html\" target=\"_blank\" data-stringify-link=\"https://docs.python.org/3/howto/sorting.html\" data-sk=\"tooltip_parent\">sorted() or list.sort()</a><span>&nbsp; python methods for this part of the assignment.&nbsp; Here’s another link:&nbsp;</span><a class=\"c-link c-link--underline\" href=\"https://www.w3schools.com/python/ref_func_sorted.asp\" target=\"_blank\" data-stringify-link=\"https://www.w3schools.com/python/ref_func_sorted.asp\" data-sk=\"tooltip_parent\">https://www.w3schools.com/python/ref_func_sorted.asp</a><span>&nbsp;</span></li>\n<li><span>If you use a&nbsp;</span><a class=\"c-link c-link--underline\" href=\"https://www.w3schools.com/python/python_lambda.asp\" target=\"_blank\" data-stringify-link=\"https://www.w3schools.com/python/python_lambda.asp\" data-sk=\"tooltip_parent\">python lambda expression</a><span>&nbsp; and&nbsp;</span><a class=\"c-link c-link--underline\" href=\"https://discuss.python.org/t/what-is-the-purpose-of-lambda-expressions/12415\" target=\"_blank\" data-stringify-link=\"https://discuss.python.org/t/what-is-the-purpose-of-lambda-expressions/12415\" data-sk=\"tooltip_parent\">use it without naming it</a><span> but defining it ‘in-line’, you will get up-to 10 extra credit points.</span></li>\n<li><strong><span style=\"text-decoration: underline;\">If the fields below are not available, you may choose others</span></strong>&nbsp;\n<ul>\n<li>The <strong>titles</strong> and <strong>vote_average</strong> in order of their <strong>vote_average </strong>for movies.</li>\n<li>The <strong>names</strong> and <strong>vote_average</strong> in order of their <strong>vote_average </strong>for tvs.</li>\n<li>The <strong>names</strong> and <strong>popularity</strong> in order of their <strong>popularity </strong>for actors.</li>\n</ul>\n</li>\n</ul>\n</li>\n<li>Submit the URL of your repository and a copy of your Vscode Terminal output.\n<ul>\n<li>You can get a copy of your Vscode terminal output by clicking in the terminal by,\n<ul>\n<li>typing CTRL-A</li>\n<li>and then either CTRL-C or right click an select Copy as HTML</li>\n<li>and the paste the buffer into a text or an html file if you selected \"Copy as HTML\"</li>\n</ul>\n</li>\n<li>Include the html file in your Canvas submission.</li>\n</ul>\n</li>\n</ol><script src=\"https://instructure-uploads.s3.us-east-1.amazonaws.com/account_30000000000410/attachments/96076218/canvas_global_app.js\"></script>",
+    "due_at": "2023-04-20T04:59:59Z",
+    "unlock_at": "2023-04-10T05:00:00Z",
+    "lock_at": "2023-04-20T04:59:59Z",
+    "points_possible": 100,
+    "grading_type": "points",
+    "assignment_group_id": 30000004826156,
+    "grading_standard_id": null,
+    "created_at": "2023-01-10T17:52:52Z",
+    "updated_at": "2023-04-18T20:24:23Z",
+    "peer_reviews": false,
+    "automatic_peer_reviews": false,
+    "position": 8,
+    "grade_group_students_individually": false,
+    "anonymous_peer_reviews": false,
+    "group_category_id": null,
+    "post_to_sis": false,
+    "moderated_grading": false,
+    "omit_from_final_grade": false,
+    "intra_group_peer_reviews": false,
+    "anonymous_instructor_annotations": false,
+    "anonymous_grading": false,
+    "graders_anonymous_to_graders": false,
+    "grader_count": 0,
+    "grader_comments_visible_to_graders": true,
+    "final_grader_id": null,
+    "grader_names_visible_to_final_grader": true,
+    "allowed_attempts": -1,
+    "annotatable_attachment_id": null,
+    "secure_params": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsdGlfYXNzaWdubWVudF9pZCI6ImI3N2RiNGJhLTZmNmMtNDA5OC1iYmNjLTNhNGYwMGU5YTEzYyIsImx0aV9hc3NpZ25tZW50X2Rlc2NyaXB0aW9uIjoiXHUwMDNjcFx1MDAzZUluIHRoaXMgYXNzaWdubWVudCB5b3Ugd2lsbCBhZGQgdG8gYSBQeXRob24gcHJvZ3JhbSB0byByZXRyaWV2ZSBpbmZvcm1hdGlvbiBmcm9tIGEgbW92aWUgZGF0YWJhc2UuXHUwMDI2bmJzcDtcdTAwM2MvcFx1MDAzZVxuXHUwMDNjcFx1MDAzZVx1MDAzY3N0cm9uZ1x1MDAzZVByZXBhcmF0aW9uIGZvciBBc3NpZ25tZW50Olx1MDAzYy9zdHJvbmdcdTAwM2VcdTAwM2MvcFx1MDAzZVxuXHUwMDNjb2xcdTAwM2Vcblx1MDAzY2xpXHUwMDNlR2V0IGFuIGFjY291bnQgb24gVE1EQiAoVGhlIE1vdmllIERhdGFiYXNlKTogXHUwMDI2bmJzcDtcdTAwM2NhIGhyZWY9XCJodHRwczovL3d3dy50aGVtb3ZpZWRiLm9yZy9zaWdudXBcIiB0YXJnZXQ9XCJfYmxhbmtcIlx1MDAzZWh0dHBzOi8vd3d3LnRoZW1vdmllZGIub3JnL3NpZ251cFx1MDAzYy9hXHUwMDNlXG5cdTAwM2N1bFx1MDAzZVxuXHUwMDNjbGlcdTAwM2VQbGVhc2UgdXNlIHlvdXIgVGV4YXMgU3RhdGUgVW5pdmVyc2l0eSBlbWFpbCBhZGRyZXNzLlx1MDAzYy9saVx1MDAzZVxuXHUwMDNjbGlcdTAwM2VZb3Ugd2lsbCBsaWtlbHkgZ2V0IGEgY29uZmlybWF0aW9uIGVtYWlsIGZvciB2ZXJpZnlpbmcgeW91ciBlbWFpbCBhZGRyZXNzLlx1MDAyNm5ic3A7IFlvdSdsbCBuZWVkIHRvIGFjdGl2YXRlIHlvdXIgYWNjb3VudCB2aWEgdGhlIGVtYWlsXHUwMDI2bmJzcDtcdTAwM2MvbGlcdTAwM2Vcblx1MDAzYy91bFx1MDAzZVxuXHUwMDNjL2xpXHUwMDNlXG5cdTAwM2NsaVx1MDAzZUFmdGVyIGdldHRpbmcgeW91ciBhY2NvdW50LCBhbmQgbG9nZ2luZyBpbiwgY2xpY2sgb24gdGhlIHByb2ZpbGUgaWNvbiBpbiB0aGUgdXBwZXIgcmlnaHQgKEl0IGlzIGEgY2lyY3VsYXIgaWNvbiB3aXRoIHRoZSBmaXJzdCBpbml0aWFsIG9mIHRoZSBmaXJzdCB3b3JkIG9mIHlvdXIgdXNlciBuYW1lKS5cdTAwMjZuYnNwO1xuXHUwMDNjdWxcdTAwM2Vcblx1MDAzY2xpXHUwMDNlU2VsZWN0IFwiU2V0dGluZ3NcIiBmcm9tIHRoZSBkcm9wIGRvd24gbWVudS5cdTAwM2MvbGlcdTAwM2Vcblx1MDAzYy91bFx1MDAzZVxuXHUwMDNjL2xpXHUwMDNlXG5cdTAwM2NsaVx1MDAzZU9uIHRoZSBsZWZ0IHBhbmUsIHNlbGVjdCBcIkFQSVwiXG5cdTAwM2N1bFx1MDAzZVxuXHUwMDNjbGlcdTAwM2VSZXF1ZXN0IGFuIEFQSSBrZXlcdTAwM2MvbGlcdTAwM2Vcblx1MDAzY2xpXHUwMDNlV2hlbiBhc2tlZCB3aGF0IGtpbmQgb2Yga2V5IGRvIHdhbnQsIGNsaWNrIG9uIFwiRGV2ZWxvcGVyLlwiXHUwMDI2bmJzcDtcdTAwMjZuYnNwO1x1MDAzYy9saVx1MDAzZVxuXHUwMDNjbGlcdTAwM2VTY3JvbGwgZG93biBjbGljayBvbiB0aGUgXCJBY2NlcHQuLi4gKHRydW5jYXRlZCkifQ.MJ2jVmMbS_UyUV7pCoKwpdD8xQSH1kK5eiQXy9Mfb30",
+    "lti_context_id": "b77db4ba-6f6c-4098-bbcc-3a4f00e9a13c",
+    "course_id": 30000002049468,
+    "name": "Assignment 17: REST GET API",
+    "submission_types": [
+      "online_url",
+      "online_upload"
+    ],
+    "has_submitted_submissions": true,
+    "due_date_required": false,
+    "max_name_length": 255,
+    "in_closed_grading_period": false,
+    "graded_submissions_exist": false,
+    "is_quiz_assignment": false,
+    "can_duplicate": true,
+    "original_course_id": null,
+    "original_assignment_id": null,
+    "original_lti_resource_link_id": null,
+    "original_assignment_name": null,
+    "original_quiz_id": null,
+    "workflow_state": "published",
+    "important_dates": false,
+    "muted": true,
+    "html_url": "https://canvas.instructure.com/courses/30000002049468/assignments/3~28801210",
+    "use_rubric_for_grading": true,
+    "free_form_criterion_comments": true,
+    "rubric": [
+      {
+        "id": "_8951",
+        "points": 20,
+        "description": "The media_type and time_window choices correspond to NETID settings.",
+        "long_description": "",
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "_7192",
+            "points": 20,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "_2533",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "_3791",
+        "points": 30,
+        "description": "The .env directory is not in the Bitbucket Repository",
+        "long_description": "",
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "_5277",
+            "points": 30,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "_7748",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "2419977_6345",
+        "points": 10,
+        "description": "Variable names are related to what they represent",
+        "long_description": "",
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "2419977_9606",
+            "points": 10,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "2419977_9687",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "2419977_3750",
+        "points": 20,
+        "description": "There is print output with titles, popularity and vote_count",
+        "long_description": "",
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "2419977_7510",
+            "points": 20,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "2419977_960",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "2419977_8783",
+        "points": 20,
+        "description": "There is printout of title, vote_average sorted on voter_average",
+        "long_description": "",
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "2419977_1463",
+            "points": 20,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "2419977_234",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "2542907_7286",
+        "points": 0,
+        "description": "+10 pts if you use a lambda expression (well) for the sorting",
+        "long_description": "Extra credit (10 pts) if you use a lambda expression to make your code smaller (fewer lines) while doing the sorting.",
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "2542907_3743",
+            "points": 0,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "2542907_9859",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      }
+    ],
+    "rubric_settings": {
+      "id": 30000002542907,
+      "title": "Rest TMDB  Get",
+      "points_possible": 100,
+      "free_form_criterion_comments": true,
+      "hide_score_total": false,
+      "hide_points": false
+    },
+    "published": true,
+    "only_visible_to_overrides": false,
+    "bucket": "future",
+    "locked_for_user": false,
+    "submissions_download_url": "https://canvas.instructure.com/courses/3~2049468/assignments/3~28801210/submissions?zip=1",
+    "post_manually": false,
+    "anonymize_students": false,
+    "require_lockdown_browser": false,
+    "restrict_quantitative_data": false
+  },
+  {
+    "id": 30000028801214,
+    "description": "<link rel=\"stylesheet\" href=\"https://instructure-uploads.s3.us-east-1.amazonaws.com/account_30000000000410/attachments/96076219/canvas_global_app.css\"><p>Sprint Reviews and Retrospectives are often done separately. &nbsp;Reviews are done with a diverse set of stake holders.&nbsp; Retrospectives are often done only with the team and other stake holders closely involved with day-to-day operations. I will call on the teams in an arbitrary order.&nbsp;</p>\n<p><strong>NOTE</strong>: The status of Bitbucket will be looked at both the end of sprint date as well as the day before the demo to assess how much was done during the sprint itself and how much was done between the end of the sprint and the demo.&nbsp; Although some work can be expected after the end of the sprint, individual team mates will be expected to have significant work done (checked into Bitbucket) by Sprint end.</p>\n<ul>\n<li><strong>Review and Demo</strong><br>\n<ul>\n<li><strong>(120 pts) Your Contributions (please see Rubric for other details)</strong>:\n<ul>\n<li>Each team member must have Readme entries that discuss her/his contributions for this sprint with URLs into the repository identifying what content they added.&nbsp; Specifically:&nbsp;\n<ul>\n<li><span style=\"text-decoration: underline;\">Every&nbsp;task</span> that is done in Jira <span style=\"text-decoration: underline;\">must be associated with a branch and one or more commits</span> on Bitbucket, <span style=\"text-decoration: underline;\">have a Pull Request</span> and <span style=\"text-decoration: underline;\">be merged into the master</span> (or whatever branch your team designates as a demo branch).&nbsp; The few exceptions must be explained in the README.\n<ul>\n<li><strong>You show this in the README by listing each Jira task 9with its ID, Title and with hyperlink) that you completed along with hyperlinks to the commit(s) in Bitbucket that are associated with the tasks.</strong></li>\n</ul>\n</li>\n</ul>\n</li>\n<li>README must also be updated with your next steps for the next sprint.&nbsp; This could be additional features, tests, bug fixes.</li>\n<li>The amount of your work should be comparable (in the \"ball park\") to amount of work done by team member(s) who have the greatest amount of work done.&nbsp; The work doesn't have to be equal or the same. &nbsp;&nbsp;</li>\n</ul>\n</li>\n<li><strong>(20 pts) Well structured repository&nbsp;</strong>\n<ul>\n<li>The<span>&nbsp;</span><span>Bitbucket</span><span>&nbsp;</span>repository must be well structured with directories such as 'src,' 'docs,' 'images,' 'scripts', 'research', etc.&nbsp; &nbsp;<strong>NOTE</strong>:&nbsp; it is not necessary that the repository have these specific sub-directories.&nbsp; &nbsp;</li>\n</ul>\n</li>\n<li><strong>(20 pts) A single branch that is demoed</strong>\n<ul>\n<li>There should be a single branch that is demoed and your code should be on it.&nbsp; If there is more than one demo branch, the team should provide a justification.</li>\n</ul>\n</li>\n<li><strong>(20 pts) Running code gets the points automatic</strong>.&nbsp;\n<ul>\n<li>Your part of the project should execute along with the parts created by your team mates.&nbsp; This does not mean that if the project does not run, you will automatically get all points deducted.&nbsp;&nbsp; If you have a good reason for non-running code, we can discuss.&nbsp; HTML and CSS only files are not 'running code.\"</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n<ul>\n<li><strong>(20 pts) Retrospective</strong>: Submitted once by the team but includes contributions from all team members.&nbsp; Please use this<span>&nbsp;</span><span class=\"instructure_file_holder link_holder instructure_file_link_holder\"><a class=\"inline_disabled preview_in_overlay\" title=\"Retrospective Example and Template.pptx\" href=\"https://canvas.instructure.com/courses/3~2049468/files/3~256290507?verifier=PLCZXEPiDUMSCBob1pqdpbirpWg9PQkOLVTOG1bA&amp;wrap=1\" target=\"_blank\" data-api-endpoint=\"https://canvas.instructure.com/api/v1/courses/3~2049468/files/3~256290507\" data-api-returntype=\"File\">template</a><a class=\"file_download_btn\" role=\"button\" href=\"https://canvas.instructure.com/courses/3~2049468/files/3~256290507/download?verifier=PLCZXEPiDUMSCBob1pqdpbirpWg9PQkOLVTOG1bA\" data-api-endpoint=\"https://canvas.instructure.com/api/v1/courses/3~2049468/files/3~256290507\" data-api-returntype=\"File\"> <span>&nbsp;</span><span class=\"screenreader-only\">Download template</span></a></span>.&nbsp;&nbsp;\n<ul>\n<li style=\"list-style-type: none;\">\n<ul>\n<li><strong>What Went Well or maybe not?</strong>\n<ul>\n<li><strong>(4 pts – Team)</strong><span>&nbsp;</span>Four or more<span>&nbsp;</span><em><u>team</u></em><span>&nbsp;</span>bullets</li>\n<li><strong>(5 pts – Individual)</strong><span>&nbsp;</span>One bullet<span>&nbsp;</span><em>per team member</em>.</li>\n</ul>\n</li>\n<li><strong>What Might Be Impeding Us from Performing Better?</strong>\n<ul>\n<li><strong>(1 pts - Team)</strong><span>&nbsp;</span>One or more<span>&nbsp;</span><em><u>team</u></em><span>&nbsp;</span>bullets</li>\n</ul>\n</li>\n<li><strong>What Can I do to Improve</strong>?<br>\n<ul>\n<li><strong>(10 pts – Individual)</strong><span>&nbsp;</span>One bullet<span>&nbsp;</span><em><u>per team member</u></em><span>&nbsp;</span><strong>with what you will do better and how will your team and instructor know that you are doing it better.&nbsp;</strong></li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul><script src=\"https://instructure-uploads.s3.us-east-1.amazonaws.com/account_30000000000410/attachments/96076218/canvas_global_app.js\"></script>",
+    "due_at": "2023-04-21T04:59:59Z",
+    "unlock_at": "2023-04-17T05:00:00Z",
+    "lock_at": "2023-04-21T04:59:59Z",
+    "points_possible": 200,
+    "grading_type": "points",
+    "assignment_group_id": 30000004826158,
+    "grading_standard_id": null,
+    "created_at": "2023-01-10T17:52:53Z",
+    "updated_at": "2023-04-17T05:00:00Z",
+    "peer_reviews": false,
+    "automatic_peer_reviews": false,
+    "position": 11,
+    "grade_group_students_individually": false,
+    "anonymous_peer_reviews": false,
+    "group_category_id": null,
+    "post_to_sis": false,
+    "moderated_grading": false,
+    "omit_from_final_grade": false,
+    "intra_group_peer_reviews": false,
+    "anonymous_instructor_annotations": false,
+    "anonymous_grading": false,
+    "graders_anonymous_to_graders": false,
+    "grader_count": 0,
+    "grader_comments_visible_to_graders": true,
+    "final_grader_id": null,
+    "grader_names_visible_to_final_grader": true,
+    "allowed_attempts": -1,
+    "annotatable_attachment_id": null,
+    "secure_params": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsdGlfYXNzaWdubWVudF9pZCI6IjAxMGM3NzM1LWRlNWItNDE2Yy1iYjk2LWNhODBjZTllMWI4YiIsImx0aV9hc3NpZ25tZW50X2Rlc2NyaXB0aW9uIjoiXHUwMDNjcFx1MDAzZVNwcmludCBSZXZpZXdzIGFuZCBSZXRyb3NwZWN0aXZlcyBhcmUgb2Z0ZW4gZG9uZSBzZXBhcmF0ZWx5LiBcdTAwMjZuYnNwO1Jldmlld3MgYXJlIGRvbmUgd2l0aCBhIGRpdmVyc2Ugc2V0IG9mIHN0YWtlIGhvbGRlcnMuXHUwMDI2bmJzcDsgUmV0cm9zcGVjdGl2ZXMgYXJlIG9mdGVuIGRvbmUgb25seSB3aXRoIHRoZSB0ZWFtIGFuZCBvdGhlciBzdGFrZSBob2xkZXJzIGNsb3NlbHkgaW52b2x2ZWQgd2l0aCBkYXktdG8tZGF5IG9wZXJhdGlvbnMuIEkgd2lsbCBjYWxsIG9uIHRoZSB0ZWFtcyBpbiBhbiBhcmJpdHJhcnkgb3JkZXIuXHUwMDI2bmJzcDtcdTAwM2MvcFx1MDAzZVxuXHUwMDNjcFx1MDAzZVx1MDAzY3N0cm9uZ1x1MDAzZU5PVEVcdTAwM2Mvc3Ryb25nXHUwMDNlOiBUaGUgc3RhdHVzIG9mIEJpdGJ1Y2tldCB3aWxsIGJlIGxvb2tlZCBhdCBib3RoIHRoZSBlbmQgb2Ygc3ByaW50IGRhdGUgYXMgd2VsbCBhcyB0aGUgZGF5IGJlZm9yZSB0aGUgZGVtbyB0byBhc3Nlc3MgaG93IG11Y2ggd2FzIGRvbmUgZHVyaW5nIHRoZSBzcHJpbnQgaXRzZWxmIGFuZCBob3cgbXVjaCB3YXMgZG9uZSBiZXR3ZWVuIHRoZSBlbmQgb2YgdGhlIHNwcmludCBhbmQgdGhlIGRlbW8uXHUwMDI2bmJzcDsgQWx0aG91Z2ggc29tZSB3b3JrIGNhbiBiZSBleHBlY3RlZCBhZnRlciB0aGUgZW5kIG9mIHRoZSBzcHJpbnQsIGluZGl2aWR1YWwgdGVhbSBtYXRlcyB3aWxsIGJlIGV4cGVjdGVkIHRvIGhhdmUgc2lnbmlmaWNhbnQgd29yayBkb25lIChjaGVja2VkIGludG8gQml0YnVja2V0KSBieSBTcHJpbnQgZW5kLlx1MDAzYy9wXHUwMDNlXG5cdTAwM2N1bFx1MDAzZVxuXHUwMDNjbGlcdTAwM2VcdTAwM2NzdHJvbmdcdTAwM2VSZXZpZXcgYW5kIERlbW9cdTAwM2Mvc3Ryb25nXHUwMDNlXHUwMDNjYnJcdTAwM2Vcblx1MDAzY3VsXHUwMDNlXG5cdTAwM2NsaVx1MDAzZVx1MDAzY3N0cm9uZ1x1MDAzZSgxMjAgcHRzKSBZb3VyIENvbnRyaWJ1dGlvbnMgKHBsZWFzZSBzZWUgUnVicmljIGZvciBvdGhlciBkZXRhaWxzKVx1MDAzYy9zdHJvbmdcdTAwM2U6XG5cdTAwM2N1bFx1MDAzZVxuXHUwMDNjbGlcdTAwM2VFYWNoIHRlYW0gbWVtYmVyIG11c3QgaGF2ZSBSZWFkbWUgZW50cmllcyB0aGF0IGRpc2N1c3MgaGVyL2hpcyBjb250cmlidXRpb25zIGZvciB0aGlzIHNwcmludCB3aXRoLi4uICh0cnVuY2F0ZWQpIn0.t67iAl9SORky3q1UYCdODVhNx_yfP7f8gk9QKezi3yM",
+    "lti_context_id": "010c7735-de5b-416c-bb96-ca80ce9e1b8b",
+    "course_id": 30000002049468,
+    "name": "Assignment 18 -  Sprint 2 Review and Retrospective",
+    "submission_types": [
+      "online_url",
+      "online_upload"
+    ],
+    "has_submitted_submissions": true,
+    "due_date_required": false,
+    "max_name_length": 255,
+    "in_closed_grading_period": false,
+    "graded_submissions_exist": false,
+    "is_quiz_assignment": false,
+    "can_duplicate": true,
+    "original_course_id": null,
+    "original_assignment_id": null,
+    "original_lti_resource_link_id": null,
+    "original_assignment_name": null,
+    "original_quiz_id": null,
+    "workflow_state": "published",
+    "important_dates": false,
+    "muted": true,
+    "html_url": "https://canvas.instructure.com/courses/30000002049468/assignments/3~28801214",
+    "use_rubric_for_grading": true,
+    "free_form_criterion_comments": true,
+    "rubric": [
+      {
+        "id": "_7136",
+        "points": 80,
+        "description": "Your Contributions - Jira tasks and Bitbucket Commits",
+        "long_description": "In README: <br/>\n<br/>\n66 %&lt; credit &lt; 100% if your Jira tasks do not include ID, Title and hyperlink to the task.<br/>\n33% &lt; credit &lt; 66% if there are no hyperlinks to your commits in Bitbucket associated with the Jira tasks. <br/>\n0% &lt; credit &lt; 33% if there are no pull requests associated with your Jira tasks (these will be visible in the Jira task dialog or on bitbucket).<br/>\n<br/>\n<br/>\nThis means that if some of the commit links and/or some of the Jira IDs, title or links are missing, the grader will his/her discretion to determine the grade.<br/>\n<br/>\nNote:  if there are no commits at all in Bitbucket, you will not receive points for this part.",
+        "ignore_for_scoring": null,
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "blank",
+            "points": 80,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "blank_2",
+            "points": 0,
+            "description": "Various points deducted: 0 - 39",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "_6737",
+        "points": 20,
+        "description": "Code Running?",
+        "long_description": "Running code gets the points automatic.  :This does not mean that if the project does not run, you will automatically get all points deducted.   If you have a good reason for non-running code, we can discuss.<br/>\n<br/>\nUp to 50% off  if it builds but doesn&#39;t run (unless good reason).<br/>\n<br/>\n0% if no running code.  HTML and CSS are not running code.<br/>\n<br/>\nUp to 30% off if it requires separate builds and the reason for this is weak. A strong reason might be something like:  We have a client and server side of the application and so they are built separately.   No points would be taken off for such a case.",
+        "ignore_for_scoring": null,
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "_3876",
+            "points": 20,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "_8889",
+            "points": 0,
+            "description": "Various points deducted:  0 - 9",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "_7951",
+        "points": 20,
+        "description": "Retrospective",
+        "long_description": "What Went Well or maybe not?<br/>\n(4 pts – Team) Four or more team bullets<br/>\n(5 pts – Individual) One bullet per team member.<br/>\nWhat Might Be Impeding Us from Performing Better?<br/>\n(1 pts - Team) One or more team bullets<br/>\nWhat Can I do to Improve?<br/>\n(10 pts – Individual) One bullet per team member with what you will do better and how will your team and instructor know that you are doing it better.",
+        "ignore_for_scoring": null,
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "_3275",
+            "points": 20,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "_3201",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "2370167_4127",
+        "points": 20,
+        "description": "Well structure Repository",
+        "long_description": "The Bitbucket repository must be well structured with directories such as &#39;src,&#39; &#39;docs,&#39; &#39;images,&#39; &#39;scripts&#39;, &#39;research&#39;, etc.   NOTE:  it is not necessary that the repository have these specific sub-directories.   <br/>\n<br/>\n0% credit if there are source, image, etc file placed arbitrarily.<br/>\n0% &lt; credit &lt; 100%  at the discretion of the grader for some or a few files misplaced. This will be assessed as best as possible on an individual basis.",
+        "ignore_for_scoring": null,
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "2370167_433",
+            "points": 20,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "2370167_1464",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "2370167_882",
+        "points": 20,
+        "description": "Single Branch is demoed",
+        "long_description": "There should be a single branch that is demoed and your code should be on it.  If there is more than one demo branch, the team should provide an (good) justification.<br/>\n<br/>\nAn example of a good justification can be if the backend and front end are running on different platforms, but this should not be assumed as &quot;ok.&#39;  You have to explain the issues that prevented the single branch.<br/>\n<br/>\n0% &lt; credit &lt; 100% at grader&#39;s discretion if your code is not on the branch(es) that are demoed.",
+        "ignore_for_scoring": null,
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "2370167_1481",
+            "points": 20,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "2370167_1632",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "2370167_722",
+        "points": 20,
+        "description": "Your contributions:  How much work did you do?",
+        "long_description": "The grader will assess the commits, the files, the kind of work you did and make and assessment of whether you contributed in a way comparable to other team members.   If the project contributions were uniformly or mostly low for the sprint time frame then this part may get 0 points. <br/>\n<br/>\n0% &lt; credit &lt; 100% to you depending upon comparison of each team members work.",
+        "ignore_for_scoring": null,
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "2370167_1419",
+            "points": 20,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "2370167_2118",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      },
+      {
+        "id": "2370167_850",
+        "points": 20,
+        "description": "Your Contributions - README next steps",
+        "long_description": "Have you listed in the README your likely next steps for the next sprint. <br/>\n<br/>\n0% if you have not.<br/>\n100% if you have listed 3 or more.<br/>\n0% &lt; credit &lt; 100% for something in between.",
+        "ignore_for_scoring": null,
+        "criterion_use_range": false,
+        "ratings": [
+          {
+            "id": "2370167_8850",
+            "points": 20,
+            "description": "Full Marks",
+            "long_description": ""
+          },
+          {
+            "id": "2370167_487",
+            "points": 0,
+            "description": "No Marks",
+            "long_description": ""
+          }
+        ]
+      }
+    ],
+    "rubric_settings": {
+      "id": 30000002542905,
+      "title": "Review and Retro Sprint 2",
+      "points_possible": 200,
+      "free_form_criterion_comments": true,
+      "hide_score_total": false,
+      "hide_points": false
+    },
+    "published": true,
+    "only_visible_to_overrides": false,
+    "bucket": "future",
+    "locked_for_user": false,
+    "submissions_download_url": "https://canvas.instructure.com/courses/3~2049468/assignments/3~28801214/submissions?zip=1",
+    "post_manually": false,
+    "anonymize_students": false,
+    "require_lockdown_browser": false,
+    "restrict_quantitative_data": false
+  }
+]
