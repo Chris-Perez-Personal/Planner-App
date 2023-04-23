@@ -1,26 +1,15 @@
 package com.example.planapp;
 
-import org.json.JSONObject;
-import org.junit.*;
 import org.json.*;
-import org.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import static org.junit.Assert.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.PriorityQueue;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Comparator;
-import java.util.PriorityQueue;
 import java.util.Collections;
 
 /**
@@ -66,7 +55,7 @@ class AOBJ {
 
 
 
-public class ExampleUnitTest {
+public class Assignments {
     List<String> dueDatesValuesOfOBJ = new ArrayList<>();
     List<String> assignmentNamesOfOBJ = new ArrayList<>();
     //with multiple classes we would have an array of this
@@ -76,12 +65,11 @@ public class ExampleUnitTest {
 
 
 
-    ArrayList<AOBJ> aobjList = new ArrayList<AOBJ>();
+    ArrayList<AOBJ> aobjList = new ArrayList<>();
     int counter = 0;
     int counter2 = 0;
 
 
-    @Test
     public void addition_isCorrect() throws JSONException, IOException {
         //assertEquals(4, 2 + 2);
         extractJsonNames("data-mining.json");
@@ -122,9 +110,12 @@ public class ExampleUnitTest {
 
     public void extractJsonNames(String filename) throws JSONException, IOException {
 
-        String content = new String(Files.readAllBytes(Paths.get(filename)));
+        String content = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            content = new String(Files.readAllBytes(Paths.get(filename)));
+        }
 
-             Pattern pattern = Pattern.compile("\"name\"\\s*:\\s*\"([^\"]*|null)\"");
+        Pattern pattern = Pattern.compile("\"name\"\\s*:\\s*\"([^\"]*|null)\"");
             Matcher matcher = pattern.matcher(content);
 
             //List<String> propertyValues = new ArrayList<>();
@@ -141,7 +132,10 @@ public class ExampleUnitTest {
             //System.out.println("Names: " + propertyValues);
     }
     public void extractDueDates(String filename) throws JSONException, IOException {
-        String content = new String(Files.readAllBytes(Paths.get(filename)));
+        String content = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            content = new String(Files.readAllBytes(Paths.get(filename)));
+        }
 
         try {
             // Read the contents of the JSON file into a string
