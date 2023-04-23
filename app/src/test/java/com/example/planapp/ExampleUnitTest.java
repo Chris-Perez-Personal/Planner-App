@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Collections;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -27,43 +31,54 @@ import java.util.regex.Pattern;
 
 class AOBJ {
 
-    // field of class
-    List<String> dueDatesValuesOfOBJ = new ArrayList<>();
-    List<String> assignmentNamesOfOBJ = new ArrayList<>();
+    // fields of class
+    private String dueDate;
+    private String assignmentName;
 
-
-//    public AOBJ(List<String> dueDatesValuesOfOBJ, List<String> assignmentNamesOfOBJ){
-//        this.dueDatesValuesOfOBJ = dueDatesValuesOfOBJ;
-//        this.assignmentNamesOfOBJ = assignmentNamesOfOBJ;
-//    }
-
-
-    // method of class
-    public List<String> getDueDatesValuesOfOBJ() {
-        return dueDatesValuesOfOBJ;
+    // constructors of class
+    public AOBJ(String dueDate, String assignmentName) {
+        this.dueDate = dueDate;
+        this.assignmentName = assignmentName;
     }
 
-    public void setDueDatesValuesOfOBJ(List<String> dueDatesValuesOfOBJ) {
-        this.dueDatesValuesOfOBJ = dueDatesValuesOfOBJ;
-    }
-
-    public List<String> getAssignmentNamesOfOBJ() {
-        return assignmentNamesOfOBJ;
-    }
-
-    public void setAssignmentNamesOfOBJ(List<String> assignmentNamesOfOBJ) {
-        this.assignmentNamesOfOBJ = assignmentNamesOfOBJ;
+    public AOBJ() {
+        //do nothing
     }
 
 
+    // getters and setters of class
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getAssignmentName() {
+        return assignmentName;
+    }
+
+    public void setAssignmentName(String assignmentName) {
+        this.assignmentName = assignmentName;
+    }
 }
 
 
+
 public class ExampleUnitTest {
-    //with multiple classes we would have an array of this
-    AOBJ HumanFactors = new AOBJ();
     List<String> dueDatesValuesOfOBJ = new ArrayList<>();
     List<String> assignmentNamesOfOBJ = new ArrayList<>();
+    //with multiple classes we would have an array of this
+    //AOBJ HumanFactors = new AOBJ();
+
+
+
+
+
+    ArrayList<AOBJ> aobjList = new ArrayList<AOBJ>();
+    int counter = 0;
+    int counter2 = 0;
 
 
     @Test
@@ -71,10 +86,38 @@ public class ExampleUnitTest {
         //assertEquals(4, 2 + 2);
         extractJsonNames("data-mining.json");
         extractDueDates("data-mining.json");
-        System.out.println("Printing out info for data mining");
 
-        System.out.println(HumanFactors.assignmentNamesOfOBJ);
-        System.out.println(HumanFactors.dueDatesValuesOfOBJ);
+        extractJsonNames("computing_systems_fund.json");
+        extractDueDates("computing_systems_fund.json");
+
+        extractJsonNames("software-engineering.json");
+        extractDueDates("software-engineering.json");
+
+        extractJsonNames("human_factors.json");
+        extractDueDates("human_factors.json");
+
+        extractJsonNames("algorithms.json");
+        extractDueDates("algorithms.json");
+
+        //System.out.println("Printing out info for data mining");
+
+
+        //Organizes the objects by due date
+        Collections.sort(aobjList, new Comparator<AOBJ>() {
+            public int compare(AOBJ a1, AOBJ a2) {
+                return a1.getDueDate().compareTo(a2.getDueDate());
+            }
+        });
+
+
+        //prints out all objects
+        System.out.println("------------------");
+        for (AOBJ aobj : aobjList) {
+
+            System.out.println("Due date: " + aobj.getDueDate());
+            System.out.println("Assignment name: " + aobj.getAssignmentName());
+            System.out.println("------------------");
+        }
     }
 
     public void extractJsonNames(String filename) throws JSONException, IOException {
@@ -88,9 +131,13 @@ public class ExampleUnitTest {
 
             while (matcher.find()) {
                 String propertyValue = matcher.group(1);
-                assignmentNamesOfOBJ.add(propertyValue);
+                AOBJ aobj1 = new AOBJ();
+                aobjList.add(aobj1);
+                aobjList.get(counter).setAssignmentName(propertyValue);
+                counter++;
+                //assignmentNamesOfOBJ.add(propertyValue);
             }
-            HumanFactors.setAssignmentNamesOfOBJ(assignmentNamesOfOBJ);
+            //HumanFactors.setAssignmentNamesOfOBJ(assignmentNamesOfOBJ);
             //System.out.println("Names: " + propertyValues);
     }
     public void extractDueDates(String filename) throws JSONException, IOException {
@@ -113,12 +160,16 @@ public class ExampleUnitTest {
             while (matcher.find()) {
                 // Extract the property value from the match group
                 String propertyValue = matcher.group(1);
-                dueDatesValuesOfOBJ.add(propertyValue);
+                //dueDatesValuesOfOBJ.add(propertyValue);
+                //AOBJ aobj1 = new AOBJ();
+                //aobjList.add(aobj1);
+                aobjList.get(counter2).setDueDate(propertyValue);
+                counter2++;
             }
 
             // Print the list of property values
             //System.out.println("Due dates: " + propertyValues);
-            HumanFactors.setDueDatesValuesOfOBJ(dueDatesValuesOfOBJ);
+           // HumanFactors.setDueDatesValuesOfOBJ(dueDatesValuesOfOBJ);
         } catch (Exception e) {
             e.printStackTrace();
         }
