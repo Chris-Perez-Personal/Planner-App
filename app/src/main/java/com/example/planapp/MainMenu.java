@@ -1,7 +1,6 @@
 package com.example.planapp;
 
 import static com.example.planapp.R.id.calendarView;
-import static com.example.planapp.R.id.editText;
 
 import android.content.Intent;
 import android.os.Bundle;
