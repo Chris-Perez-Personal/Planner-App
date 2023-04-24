@@ -70,11 +70,12 @@ public class Calendar extends Fragment {
         });
         button.setOnClickListener(view -> {
             if (dateSelected != null) {
+                String eventId = databaseReference.child(dateSelected).push().getKey();
                 Event event = new Event(nameEditText.getText().toString(),
                         descriptionEditText.getText().toString(),
                         startTimeEditText.getText().toString(),
                         endTimeEditText.getText().toString());
-                databaseReference.child(dateSelected).setValue(event);
+                databaseReference.child(dateSelected).child(eventId).setValue(event);
             }
         });
 
@@ -85,19 +86,24 @@ public class Calendar extends Fragment {
         databaseReference.child(dateSelected).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue() != null){
-                    Event event = snapshot.getValue(Event.class);
-                    assert event != null;
-                    nameEditText.setText(event.getName());
-                    descriptionEditText.setText(event.getDescription());
-                    startTimeEditText.setText(event.getStartTime());
-                    endTimeEditText.setText(event.getEndTime());
+                if (snapshot.getValue() != null) {
+                    for (DataSnapshot eventSnapshot : snapshot.getChildren()) {
+                        Event event = eventSnapshot.getValue(Event.class);
+                        assert event != null;
+                        if (event.getEventID() != null) {
+                            nameEditText.setText(event.getName());
+                            descriptionEditText.setText(event.getDescription());
+                            startTimeEditText.setText(event.getStartTime());
+                            endTimeEditText.setText(event.getEndTime());
+                        }
+                    }
                 } else {
                     nameEditText.setText("");
                     descriptionEditText.setText("");
                     startTimeEditText.setText("");
                     endTimeEditText.setText("");
                 }
+
             }
 
             @Override
