@@ -5,6 +5,7 @@ public class Event {
     private String description;
     private String startTime;
     private String endTime;
+    private String eventID;
 
     public Event(){
         //empty constructor
@@ -40,4 +41,12 @@ public class Event {
     public String getEndTime() { return endTime; }
 
     public void setEndTime(String endTime) { this.endTime = endTime; }
+
+    public String getEventID(){
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
 }
