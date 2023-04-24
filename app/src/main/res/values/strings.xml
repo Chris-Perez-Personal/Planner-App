@@ -21,6 +21,7 @@
     <string name="welcome">Welcome</string>
     <string name="confirm_password">Confirm password</string>
     <string name="reset_password">Reset Password</string>
+
     <string name="title_activity_event_form">EventForm</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -36,5 +37,6 @@
     <string name="start_time">Start Time</string>
     <string name="end_time">End Time</string>
     <string name="save">Save</string>
+
 
 </resources>

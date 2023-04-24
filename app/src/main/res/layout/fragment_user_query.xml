@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGrey"
+    tools:context=".UserQuery">
+
+    <TextView
+        android:id="@+id/textViewWake"
+        android:layout_width="308dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="23dp"
+        android:textSize="22sp"
+        android:text="Set when you wake up"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wakeTime" />
+
+    <Button
+        android:id="@+id/wakeTime"
+        android:layout_width="310dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="40dp"
+        android:onClick="popupTimerW"
+        android:text="Set Time"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="325dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="117dp"
+        android:text="What time do you normally go to wake up at?"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sleepTime" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="314dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="84dp"
+        android:text="What time do you normally go to sleep at?"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/sleepTime"
+        android:layout_width="310dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="42dp"
+        android:onClick="popupTimer"
+        android:text="Set Time"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="310dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="72dp"
+        android:onClick="saveTime"
+        android:text="Save"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWake" />
+
+    <TextView
+        android:id="@+id/textViewBed"
+        android:layout_width="302dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="26dp"
+        android:textSize="22sp"
+        android:text="Set your bedtime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sleepTime" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
