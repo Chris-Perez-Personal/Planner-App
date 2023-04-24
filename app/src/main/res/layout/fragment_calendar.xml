@@ -1,45 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
-    tools.context=".MainMenu"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D2D2D2"
-    android:hapticFeedbackEnabled="true">
-
-    <CalendarView
-        android:id="@+id/calendarView"
-        style="@android:style/Widget.DeviceDefault.CalendarView"
+    android:fillViewport="true"
+    android:scrollbars="none">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/coordinatorLayout"
+        tools:context=".MainMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="#D2D2D2"
+        android:hapticFeedbackEnabled="true"
+        android:paddingBottom="16dp">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="231dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="66dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+        <CalendarView
+            android:id="@+id/calendarView"
+            style="@android:style/Widget.DeviceDefault.CalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="100dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="66dp"
-        android:onClick="buttonSaveEvent"
-        android:text="Save"
-        app:layout_constraintStart_toEndOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="231dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="66dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="231dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="@string/description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/startTimeEditText"
+            android:layout_width="231dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="time"
+            android:text="@string/start_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionEditText" />
+
+        <EditText
+            android:id="@+id/endTimeEditText"
+            android:layout_width="231dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="time"
+            android:text="@string/end_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startTimeEditText" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="66dp"
+            android:onClick="buttonSaveEvent"
+            android:text="@string/save"
+            app:layout_constraintStart_toEndOf="@+id/endTimeEditText"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
