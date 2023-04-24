@@ -12,17 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
+
+import org.w3c.dom.Text;
 
 
 public class UserQuery extends AppCompatActivity {
 
+    TextView bed, wake;
+
     Button wakeUpButton;
+    Button saveTime;
     Button sleepButton;
     // sleep hour and min
-    int sHour, sMin;
+    int sHour=0, sMin=0;
     // wake up hour and min
-    int wHour, wMin;
+    int wHour=0, wMin=0;
 
 
     @Override
@@ -32,6 +38,75 @@ public class UserQuery extends AppCompatActivity {
 
         wakeUpButton = findViewById(R.id.sleepTime);
         sleepButton = findViewById(R.id.wakeTime);
+        bed = (TextView) findViewById(R.id.textViewBed);
+        wake = (TextView) findViewById(R.id.textViewWake);
+        saveTime = findViewById(R.id.saveButton);
+
+
+
+
+        saveTime.setOnClickListener(new View.OnClickListener() {
+            // marks true if AM and false if PM
+            // w == wake; s == sleep;
+            boolean wPM = false;
+            boolean sPM = false;
+            @Override
+            public void onClick(View view) {
+
+                if(wHour == 0){
+                    wake.setText("Set when you wake up");
+                }
+                if(wHour > 12){
+                    wPM = true;
+                    wHour = wHour % 12;
+                    if(wHour % 12 == 0) wHour++;
+                    if (wMin < 10) {
+                        String temp;
+                        temp = Integer.toString(wMin);
+                        temp = String.format("%02d", wMin);
+                        wake.setText(Integer.toString(wHour) + ":" + temp + " " + (wPM ? "PM" : "AM"));
+                    } else {
+                        wake.setText(Integer.toString(wHour) + ":" + Integer.toString(wMin)+ " " + (wPM ? "PM" : "AM"));
+                    }
+                }
+                else {
+                    if (wMin < 10) {
+                        String temp;
+                        temp = Integer.toString(wMin);
+                        temp = String.format("%02d", wMin);
+                        wake.setText(Integer.toString(wHour) + ":" + temp + " " + (wPM ? "PM" : "AM"));
+                    } else {
+                        wake.setText(Integer.toString(wHour) + ":" + Integer.toString(wMin)+ " " + (wPM ? "PM" : "AM"));
+                    }
+                }
+                if(sHour > 12){
+                    sPM = true;
+                    sHour = sHour % 12;
+                    if(sHour % 12 == 0) wHour++;
+                    if (sMin < 10) {
+                        String temp;
+                        temp = Integer.toString(sMin);
+                        temp = String.format("%02d", sMin);
+                        bed.setText(Integer.toString(sHour) + ":" + temp + " " + (sPM ? "PM" : "AM"));
+                    } else {
+                        bed.setText(Integer.toString(sHour) + ":" + Integer.toString(sMin)+ " " + (sPM ? "PM" : "AM"));
+                    }
+                }
+                else {
+                    if (sMin < 10) {
+                        String temp;
+                        temp = Integer.toString(sMin);
+                        temp = String.format("%02d", sMin);
+                        bed.setText(Integer.toString(sHour) + ":" + temp + " " + (sPM ? "PM" : "AM"));
+                    } else {
+                        bed.setText(Integer.toString(sHour) + ":" + Integer.toString(sMin)+ " " + (sPM ? "PM" : "AM"));
+                    }
+                }
+            }
+        });
+
+
+
     }
 
     public void popupTimer(View view) {
@@ -42,9 +117,10 @@ public class UserQuery extends AppCompatActivity {
                 sMin = selectedMin;
             }
         };
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, sHour, sMin, true);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, sHour, sMin, false);
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
+
     }
 
     public void popupTimerW(View view) {
@@ -55,8 +131,10 @@ public class UserQuery extends AppCompatActivity {
                 wMin = selectedMin;
             }
         };
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, sHour, sMin, true);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, sHour, sMin, false);
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
+
     }
+
 }
