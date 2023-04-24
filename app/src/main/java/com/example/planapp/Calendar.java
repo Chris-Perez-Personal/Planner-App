@@ -58,32 +58,27 @@ public class Calendar extends Fragment {
     public void onStart(){
         super.onStart();
         calendarView = context.findViewById(R.id.calendarView);
-        nameEditText = context.findViewById(R.id.nameEditText);
-        descriptionEditText = context.findViewById(R.id.descriptionEditText);
-        startTimeEditText = context.findViewById(R.id.startTimeEditText);
-        endTimeEditText = context.findViewById(R.id.endTimeEditText);
         Button button = context.findViewById(R.id.button);
 
         calendarView.setOnDateChangeListener((calendarView, i, i1, i2) -> {
             dateSelected = Integer.toHexString(i) + Integer.toHexString(i1) + Integer.toHexString(i2);
             calendarClick();
         });
-        button.setOnClickListener(view -> {
+
+        button.setOnClickListener(v -> {
             if (dateSelected != null) {
-                String eventId = databaseReference.child(dateSelected).push().getKey();
-                Event event = new Event(nameEditText.getText().toString(),
-                        descriptionEditText.getText().toString(),
-                        startTimeEditText.getText().toString(),
-                        endTimeEditText.getText().toString());
-                databaseReference.child(dateSelected).child(eventId).setValue(event);
+                EventDialog dialog = EventDialog.newInstance();
+                Bundle args = new Bundle();
+                args.putString("dateSelected", dateSelected);
+                dialog.setArguments(args);
+                dialog.show(getParentFragmentManager(), "EventDialog");
             }
         });
-
         databaseReference = FirebaseDatabase.getInstance().getReference("Calendar");
     }
 
     private void calendarClick(){
-        databaseReference.child(dateSelected).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(String.valueOf(dateSelected)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getValue() != null) {
@@ -97,18 +92,18 @@ public class Calendar extends Fragment {
                             endTimeEditText.setText(event.getEndTime());
                         }
                     }
-                } else {
-                    nameEditText.setText("");
-                    descriptionEditText.setText("");
-                    startTimeEditText.setText("");
-                    endTimeEditText.setText("");
                 }
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        calendarClick();
     }
 }
