@@ -42,7 +42,7 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        replace(new MainMenu_Home());
+        replace(new Calendar());
 
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -50,9 +50,6 @@ public class MainMenu extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        replace(new MainMenu_Home());
-                        break;
                     case R.id.navigation_calendar:
                         replace(new Calendar());
                         break;
