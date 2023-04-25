@@ -88,7 +88,7 @@ public class Calendar extends Fragment {
 
         button.setOnClickListener(v -> {
             if (dateSelected != null) {
-                EventDialog dialog = EventDialog.newInstance();
+                EventDialog dialog = EventDialog.newInstance(dateSelected);
                 Bundle args = new Bundle();
                 args.putString("dateSelected", dateSelected);
                 dialog.setArguments(args);
@@ -106,9 +106,12 @@ public class Calendar extends Fragment {
                 // Retrieve the list of events from the database
                 List<Event> eventList = new ArrayList<>();
                 for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot eventSnapshot : dateSnapshot.getChildren()) {
-                        Event event = eventSnapshot.getValue(Event.class);
-                        eventList.add(event);
+                    String date = dateSnapshot.getKey();
+                    if(date.equals(dateSelected)){
+                        for (DataSnapshot eventSnapshot : dateSnapshot.getChildren()) {
+                            Event event = eventSnapshot.getValue(Event.class);
+                            eventList.add(event);
+                        }
                     }
                 }
 
