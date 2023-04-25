@@ -24,12 +24,17 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class EventDialog extends DialogFragment {
     private DatabaseReference databaseReference;
+    private String selectedDate;
 
     public EventDialog() {
         // Required empty public constructor
     }
 
-    public static EventDialog newInstance() {
+    public static EventDialog newInstance(String selectedDate) {
+        EventDialog dialog = new EventDialog();
+        Bundle args = new Bundle();
+        args.putString("selectedDate", selectedDate);
+        dialog.setArguments(args);
         return new EventDialog();
     }
 
