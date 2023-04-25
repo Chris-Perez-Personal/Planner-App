@@ -1,11 +1,16 @@
 package com.example.planapp;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Calendar#newInstance} factory method to
@@ -31,6 +39,10 @@ public class Calendar extends Fragment {
     private EditText nameEditText, descriptionEditText, startTimeEditText, endTimeEditText;
     private String dateSelected;
     private DatabaseReference databaseReference;
+    private RecyclerView recyclerView;
+    private EventAdapter eventAdapter;
+    private List<Event> eventList;
+
 
     public Calendar() {
         // Required empty public constructor
@@ -52,7 +64,16 @@ public class Calendar extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         context = getActivity();
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        eventList = new ArrayList<>();
+        eventAdapter = new EventAdapter(eventList);
+        recyclerView.setAdapter(eventAdapter);
+
+
+        return view;
     }
 
     public void onStart(){
@@ -78,27 +99,32 @@ public class Calendar extends Fragment {
     }
 
     private void calendarClick(){
-        databaseReference.child(String.valueOf(dateSelected)).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference eventsRef = FirebaseDatabase.getInstance().getReference("Calendar");
+        eventsRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue() != null) {
-                    for (DataSnapshot eventSnapshot : snapshot.getChildren()) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Retrieve the list of events from the database
+                List<Event> eventList = new ArrayList<>();
+                for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot eventSnapshot : dateSnapshot.getChildren()) {
                         Event event = eventSnapshot.getValue(Event.class);
-                        assert event != null;
-                        if (event.getEventID() != null) {
-                            nameEditText.setText(event.getName());
-                            descriptionEditText.setText(event.getDescription());
-                            startTimeEditText.setText(event.getStartTime());
-                            endTimeEditText.setText(event.getEndTime());
-                        }
+                        eventList.add(event);
                     }
                 }
+
+                // Update the eventList in the adapter with the new data
+                eventAdapter.setEventList(eventList);
+
+                // Notify the adapter that the data has changed
+                eventAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "Failed to read value.", databaseError.toException());
             }
         });
+
     }
 
     @Override
